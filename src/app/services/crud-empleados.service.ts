@@ -25,7 +25,6 @@ export class CrudEmpleadosService {
     const decode = jwt_decode(token);
     this.admi = new Administrador(decode.user_id, decode.email);
 
-    console.log('dddd')
     this.administrador = this.afs.collection<Administrador>('usuarios', ref => ref.where('uid', '==', this.admi.uid));
     this.preguntas = this.afs.collection<any>('preguntas');
 

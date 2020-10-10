@@ -11,9 +11,17 @@
                     <a class="nav-link text-white" routerLink="/registro">Registrarse</a>
                 </li>
 
-                <li class="nav-item" routerLinkActive="active" *ngIf="_auth.estaAutenticado()">
-                    <a class="nav-link text-white" routerLink="/login" (click)="_auth.salir()">Salir</a>
-                </li>
+                <div class="dropdown" *ngIf="_auth.estaAutenticado()">
+                    <a class="btn bg-button dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Administrador
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                      <p class="dropdown-item bg-white text-secondary" ><i class="fas fa-user"></i> {{ _auth.email }}</p>
+                      <a class="dropdown-item text-secondary" routerLink="/login" (click)="_auth.salir()"><i class="fas fa-sign-out-alt"></i> Salir</a>
+                    </div>
+                  </div>
+                
             </div>
         </div>
     </div>

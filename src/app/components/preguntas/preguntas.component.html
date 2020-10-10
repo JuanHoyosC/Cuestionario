@@ -1,82 +1,84 @@
-<div *ngIf="!empleado.encuestado; else graficas">
+<div *ngIf="empleado">
+    <div *ngIf="!empleado.encuestado; else graficas">
 
-    <div class="alert alert-warning  text-center" role="alert">
-        El presente cuestionario tiene como finalidad evaluar el desempeño del personal a su cargo.
-        La información que proporcione será únicamente consultable por usted.
-        Elija la expresión que refleje su nivel de satisfacción respecto del rubro que se cuestiona.
+        <div class="alert alert-warning  text-center" role="alert">
+            El presente cuestionario tiene como finalidad evaluar el desempeño del personal a su cargo.
+            La información que proporcione será únicamente consultable por usted.
+            Elija la expresión que refleje su nivel de satisfacción respecto del rubro que se cuestiona.
+        </div>
+
+        <div *ngFor="let preguntas of categorias | slice:categoria: categoria + 1; let i = index"
+            class="border border rounded p-3 mb-2">
+            <form #form="ngForm" (submit)="continuar( form, nombreCategoria[categoria] )">
+                <h3 class="text-center">{{ nombreCategoria[categoria] }}</h3>
+                <ul class="list-group list-group-flush py-5">
+
+                    <li class="mb-5" *ngFor="let pregunta of preguntas">
+                        <p class="h6 text-center mb-4">{{ pregunta }}</p>
+
+                        <div class="d-flex justify-content-center">
+                            <div class="card d-flex flex-column p-2 mr-2">
+                                <label [for]="'1-'+pregunta">
+                                    <img src="../../../assets/images/1.jpeg" alt="" width="40" height="40"
+                                        style="object-fit: cover;" class="pointer">
+                                </label>
+                                <input type="radio" [name]="pregunta" [id]="'1-'+pregunta" class="align-self-center"
+                                    value="1" ngModel #uno="ngModel" required>
+                            </div>
+
+                            <div class="card d-flex flex-column p-2 mr-2">
+                                <label [for]="'2-'+pregunta">
+                                    <img src="../../../assets/images/2.jpeg" alt="" width="40" height="40"
+                                        style="object-fit: cover;" class="pointer">
+                                </label>
+                                <input type="radio" [name]="pregunta" [id]="'2-'+pregunta" class="align-self-center"
+                                    value="2" ngModel #dos="ngModel" required>
+                            </div>
+
+                            <div class="card d-flex flex-column p-2 mr-2">
+                                <label [for]="'3-'+pregunta">
+                                    <img src="../../../assets/images/3.jpeg" alt="" width="40" height="40"
+                                        style="object-fit: cover;" class="pointer">
+                                </label>
+                                <input type="radio" [name]="pregunta" [id]="'3-'+pregunta" class="align-self-center"
+                                    value="3" ngModel #tres="ngModel" required>
+                            </div>
+
+                            <div class="card d-flex flex-column p-2 mr-2">
+                                <label [for]="'4-'+pregunta">
+                                    <img src="../../../assets/images/4.jpeg" alt="" width="40" height="40"
+                                        style="object-fit: cover;" class="pointer">
+                                </label>
+                                <input type="radio" [name]="pregunta" [id]="'4-'+pregunta" class="align-self-center"
+                                    value="4" ngModel #cuatro="ngModel" required>
+                            </div>
+
+                            <div class="card d-flex flex-column p-2">
+                                <label [for]="'5-'+pregunta">
+                                    <img src="../../../assets/images/5.jpeg" alt="" width="40" height="40"
+                                        style="object-fit: cover;" class="pointer" required>
+                                </label>
+                                <input type="radio" [name]="pregunta" [id]="'5-'+pregunta" class="align-self-center"
+                                    value="5" ngModel #cinco="ngModel" required>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+
+                <div class="d-flex">
+                    <button type="submit" class="btn bg-button d-block mx-auto"
+                        *ngIf="empleado.respuestas.length < 5">Siguiente
+                        sección</button>
+                    <button type="submit" class="btn bg-button d-block mx-auto"
+                        *ngIf="empleado.respuestas.length >= 5">Enviar encuesta</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div *ngFor="let preguntas of categorias | slice:categoria: categoria + 1; let i = index"
-        class="border border rounded p-3 mb-2">
-        <form #form="ngForm" (submit)="continuar( form, nombreCategoria[categoria] )">
-            <h3 class="text-center">{{ nombreCategoria[categoria] }}</h3>
-            <ul class="list-group list-group-flush py-5">
-
-                <li class="mb-5" *ngFor="let pregunta of preguntas">
-                    <p class="h6 text-center mb-4">{{ pregunta }}</p>
-                    
-                    <div class="d-flex justify-content-center">
-                        <div class="card d-flex flex-column p-2 mr-2">
-                            <label [for]="'1-'+pregunta">
-                                <img src="../../../assets/images/1.jpeg" alt="" width="40" height="40"
-                                    style="object-fit: cover;" class="pointer">
-                            </label>
-                            <input type="radio" [name]="pregunta" [id]="'1-'+pregunta" class="align-self-center"
-                                value="1" ngModel #uno="ngModel" required>
-                        </div>
-
-                        <div class="card d-flex flex-column p-2 mr-2">
-                            <label [for]="'2-'+pregunta">
-                                <img src="../../../assets/images/2.jpeg" alt="" width="40" height="40"
-                                    style="object-fit: cover;" class="pointer">
-                            </label>
-                            <input type="radio" [name]="pregunta" [id]="'2-'+pregunta" class="align-self-center"
-                                value="2" ngModel #dos="ngModel" required>
-                        </div>
-
-                        <div class="card d-flex flex-column p-2 mr-2">
-                            <label [for]="'3-'+pregunta">
-                                <img src="../../../assets/images/3.jpeg" alt="" width="40" height="40"
-                                    style="object-fit: cover;" class="pointer">
-                            </label>
-                            <input type="radio" [name]="pregunta" [id]="'3-'+pregunta" class="align-self-center"
-                                value="3" ngModel #tres="ngModel" required>
-                        </div>
-
-                        <div class="card d-flex flex-column p-2 mr-2">
-                            <label [for]="'4-'+pregunta">
-                                <img src="../../../assets/images/4.jpeg" alt="" width="40" height="40"
-                                    style="object-fit: cover;" class="pointer">
-                            </label>
-                            <input type="radio" [name]="pregunta" [id]="'4-'+pregunta" class="align-self-center"
-                                value="4" ngModel #cuatro="ngModel" required>
-                        </div>
-
-                        <div class="card d-flex flex-column p-2">
-                            <label [for]="'5-'+pregunta">
-                                <img src="../../../assets/images/5.jpeg" alt="" width="40" height="40"
-                                    style="object-fit: cover;" class="pointer" required>
-                            </label>
-                            <input type="radio" [name]="pregunta" [id]="'5-'+pregunta" class="align-self-center"
-                                value="5" ngModel #cinco="ngModel" required>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-
-            <div class="d-flex">
-                <button type="submit" class="btn bg-button d-block mx-auto"
-                    *ngIf="empleado.respuestas.length < 5">Siguiente
-                    sección</button>
-                <button type="submit" class="btn bg-button d-block mx-auto"
-                    *ngIf="empleado.respuestas.length >= 5">Enviar encuesta</button>
-            </div>
-        </form>
-    </div>
+    <ng-template #graficas>
+        <app-grafica [empleado]="empleado"></app-grafica>
+    </ng-template>
 </div>
-
-<ng-template #graficas>
-    <app-grafica [empleado]="empleado"></app-grafica>
-</ng-template>

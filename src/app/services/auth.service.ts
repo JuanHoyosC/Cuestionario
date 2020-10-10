@@ -13,11 +13,10 @@ export class AuthService {
   private apikey = 'AIzaSyA1gLBmc9Hr8OhhEEBNA7lbJO-j9AUz2IQ';
   public userId = '';
   private userToken: string = '';
+  public email: string = '';
 
-  constructor(private http: HttpClient) {
-     
-    this.leerToken();
-   
+  constructor(private http: HttpClient) {  
+   this.leerToken()
   }
 
   login(usuario: Usuario) {
@@ -62,6 +61,8 @@ export class AuthService {
 
     if (localStorage.getItem('token')) {
       this.userToken = localStorage.getItem('token');
+      const decode = jwt_decode(this.userToken );
+      this.email = decode.email;
     } else {
       this.userToken = '';
     }

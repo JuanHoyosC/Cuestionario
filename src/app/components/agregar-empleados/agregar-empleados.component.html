@@ -22,12 +22,12 @@
                         <div class="col-12 col-md-6 col-lg-6 mb-3">
                             <input type="text" class="form-control" placeholder="Nombre"
                             name="nombre" ngModel #nombre="ngModel" required >
-                            <small class="text-danger" *ngIf="(nombre.invalid && nombre.touched) || form.submitted && nombre.invalid"> Debe llenar el campo </small>
+                            <small class="text-danger" *ngIf="(nombre.invalid && nombre.touched)"> Debe llenar el campo </small>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-3">
                             <input type="text" class="form-control" placeholder="Apellido"
                             name="apellido" ngModel #apellido="ngModel" required >
-                            <small class="text-danger" *ngIf="(apellido.invalid && apellido.touched) || form.submitted && apellido.invalid"> Debe llenar el campo </small>
+                            <small class="text-danger" *ngIf="(apellido.invalid && apellido.touched)"> Debe llenar el campo </small>
                         </div>
                         
                     </div>
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Puesto"
                         name="puesto" ngModel #puesto="ngModel" required >
-                        <small class="text-danger" *ngIf="(puesto.invalid && puesto.touched) || form.submitted && puesto.invalid"> Debe llenar el campo </small>
+                        <small class="text-danger" *ngIf="(puesto.invalid && puesto.touched) "> Debe llenar el campo </small>
                     </div>
                    
                     <button class="btn bg-button d-block w-100">Agregar empleado</button>

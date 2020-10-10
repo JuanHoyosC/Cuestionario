@@ -9,18 +9,21 @@
         <div class="row mx-0">
             <div class="col-md-4 pl-0 mb-3">
                 <ul class="list-group">
-                    <li #elemento class="list-group-item d-flex justify-content-between "
-                        *ngFor="let empleado of _crud.empleados; let i = index"
+                    <li #elemento class="list-group-item  " *ngFor="let empleado of _crud.empleados; let i = index"
                         (click)="seleccionarEmpleado( empleado, elemento )"
                         (dblclick)="llenarCuestionario(  i + '-' + empleado.nombre )">
-                        <div>
-                            <p class="mb-0">Nombre: {{ empleado.nombre }} {{ empleado.apellido }}</p>
-                            <p class="mb-0">Puesto: {{ empleado.puesto }}</p>
+                        <div class="rounded border p-2 mb-1">
+                            <p class="mb-0 text-secondary">Nombre: {{ empleado.nombre }} {{ empleado.apellido }}</p>
+                            <p class="mb-0 text-secondary">Puesto: {{ empleado.puesto }}</p>
                         </div>
-                        <div>
-                            <i class="fas fa-trash text-danger pointer eliminar" (click)="eliminarEmpleado( i )"></i>
+                        <div class="d-flex justify-content-between  rounded p-2">
+                            <p class="mb-0 text-primary pointer"
+                            (click)="llenarCuestionario(  i + '-' + empleado.nombre )"><i class="fas fa-eye"> Encuesta</i></p>
+                            <i class="fas fa-trash text-danger pointer eliminar"
+                                    (click)="eliminarEmpleado( i )"></i>
                             <i class="fas fa-pen-square text-warning pointer ml-2 editar" data-toggle="modal"
-                                data-target="#exampleModal1"></i>
+                                    data-target="#exampleModal1"></i>
+
                         </div>
                     </li>
                 </ul>
@@ -65,11 +68,13 @@
             <div class="modal-body">
                 <form #form="ngForm" (submit)="actualizarEmpleado( form )">
                     <div class="form-group" *ngIf="empleadoSeleccionado">
-                        <input type="text" class="form-control" placeholder="Puesto" name="puesto" 
-                                [(ngModel)]=" empleadoSeleccionado.puesto" required #puesto="ngModel">
-                        <small class="text-danger" *ngIf="(puesto.invalid && puesto.touched) || form.submitted && puesto.invalid"> Debe llenar el campo </small>
+                        <input type="text" class="form-control" placeholder="Puesto" name="puesto"
+                            [(ngModel)]=" empleadoSeleccionado.puesto" required #puesto="ngModel">
+                        <small class="text-danger"
+                            *ngIf="(puesto.invalid && puesto.touched) || form.submitted && puesto.invalid"> Debe llenar
+                            el campo </small>
                     </div>
-                    
+
                     <button class="btn bg-button d-block w-100">Actualizar</button>
                 </form>
             </div>

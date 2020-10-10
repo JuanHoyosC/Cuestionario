@@ -19,7 +19,6 @@ export class EncuestaComponent {
     this._crud.obtenerEmpleado().subscribe(administrador => {
       const index = this.route.snapshot.paramMap.get('empleado').split('-')[0];
       this.empleado = administrador[0].empleados[index];
-      console.log(this.empleado)
       this.index = Number(index);
     })
   }
