@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.nav-link:hover {
+    text-shadow: 0.1px 0.1px 1px  rgb(255, 255, 255) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+
+.btn:focus, .btn.focus, input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+input:focus {
+    border: 1px solid #ced4da !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.seleccionado {
+    background-color: rgba(199, 206, 243, 0.596);
+    border: 1px dotted rgba(56, 141, 252);
+}
+
+.eliminar, .editar{
+    font-size: 20px;
+}

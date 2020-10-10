@@ -1,0 +1,46 @@
+<div class="my-5">
+    <div class="barra-superior d-flex justify-content-between mb-3">
+        <p class="h4">Empleados</p>
+        <button class="btn bg-button ml-auto" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+    </div>
+      <span class="border-bottom d-block w-100"></span>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-secondary" id="exampleModalLabel">Cree un empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #form="ngForm" (submit)="crearEmpleado( form )">
+                    <div class="form-group row mb-0">
+                        <div class="col-12 col-md-6 col-lg-6 mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre"
+                            name="nombre" ngModel #nombre="ngModel" required >
+                            <small class="text-danger" *ngIf="(nombre.invalid && nombre.touched) || form.submitted && nombre.invalid"> Debe llenar el campo </small>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 mb-3">
+                            <input type="text" class="form-control" placeholder="Apellido"
+                            name="apellido" ngModel #apellido="ngModel" required >
+                            <small class="text-danger" *ngIf="(apellido.invalid && apellido.touched) || form.submitted && apellido.invalid"> Debe llenar el campo </small>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Puesto"
+                        name="puesto" ngModel #puesto="ngModel" required >
+                        <small class="text-danger" *ngIf="(puesto.invalid && puesto.touched) || form.submitted && puesto.invalid"> Debe llenar el campo </small>
+                    </div>
+                   
+                    <button class="btn bg-button d-block w-100">Agregar empleado</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

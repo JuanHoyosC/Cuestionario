@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg bg-navbar">
+    <div class="container">
+        <a class="navbar-brand text-white" routerLink="/home">Cuestionario</a>
+        <div>
+            <div class="d-flex">
+                 <li class="nav-item" routerLinkActive="active" *ngIf="!_auth.estaAutenticado()">
+                    <a class="nav-link text-white" routerLink="/login">Ingresar</a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="active" *ngIf="!_auth.estaAutenticado()">
+                    <a class="nav-link text-white" routerLink="/registro">Registrarse</a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="active" *ngIf="_auth.estaAutenticado()">
+                    <a class="nav-link text-white" routerLink="/login" (click)="_auth.salir()">Salir</a>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>

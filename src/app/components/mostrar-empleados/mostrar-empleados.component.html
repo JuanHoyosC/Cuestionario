@@ -1,0 +1,78 @@
+<div class="contenedor-empleados">
+    <div class="alert alert-secondary text-center" role="alert" *ngIf="_crud.empleados.length === 0; else empleados">
+        <p class="h1"><i class="fas fa-exclamation fa-2x"></i></p>
+        <p class="h3 ">No hay empleados registrados</p>
+    </div>
+
+
+    <ng-template #empleados>
+        <div class="row mx-0">
+            <div class="col-md-4 pl-0 mb-3">
+                <ul class="list-group">
+                    <li #elemento class="list-group-item d-flex justify-content-between "
+                        *ngFor="let empleado of _crud.empleados; let i = index"
+                        (click)="seleccionarEmpleado( empleado, elemento )"
+                        (dblclick)="llenarCuestionario(  i + '-' + empleado.nombre )">
+                        <div>
+                            <p class="mb-0">Nombre: {{ empleado.nombre }} {{ empleado.apellido }}</p>
+                            <p class="mb-0">Puesto: {{ empleado.puesto }}</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-trash text-danger pointer eliminar" (click)="eliminarEmpleado( i )"></i>
+                            <i class="fas fa-pen-square text-warning pointer ml-2 editar" data-toggle="modal"
+                                data-target="#exampleModal1"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-8 pl-0">
+                <div class="alert alert-primary text-center" role="alert"
+                    *ngIf="!empleadoSeleccionado; else seleccionado">
+                    <p class="h3 text-primary"><i class="fas fa-hand-pointer fa-2x"></i></p>
+                    <p class="h3 text-primary">Selecciona un empleado</p>
+                </div>
+
+                <ng-template #seleccionado>
+                    <div class="alert alert-danger text-center" role="alert"
+                        *ngIf="!empleadoSeleccionado.encuestado; else resultado">
+                        <p class="h3 text-danger"><i class="fas fa-exclamation-triangle fa-2x"></i></p>
+                        <p class="h3 text-danger">No hay resultado, doble click en el empleado para llenar su
+                            cuestionario</p>
+                    </div>
+
+                    <ng-template #resultado>
+                        <app-grafica [empleado]="empleadoSeleccionado"></app-grafica>
+                    </ng-template>
+                </ng-template>
+            </div>
+
+        </div>
+    </ng-template>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-secondary" id="exampleModalLabel">Editar empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #form="ngForm" (submit)="actualizarEmpleado( form )">
+                    <div class="form-group" *ngIf="empleadoSeleccionado">
+                        <input type="text" class="form-control" placeholder="Puesto" name="puesto" 
+                                [(ngModel)]=" empleadoSeleccionado.puesto" required #puesto="ngModel">
+                        <small class="text-danger" *ngIf="(puesto.invalid && puesto.touched) || form.submitted && puesto.invalid"> Debe llenar el campo </small>
+                    </div>
+                    
+                    <button class="btn bg-button d-block w-100">Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

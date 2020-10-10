@@ -1,0 +1,29 @@
+
+<h3 class="text-center text-secondary mb-3">Resultados de {{ empleado.nombre }} {{ empleado.apellido }}</h3>
+<div class="d-flex justify-content-center px-2">
+    <div class="imagenes">
+        <img src="../../../assets/images/1.jpeg" alt="1" class="mr-2" width="40" height="40" style="object-fit: cover;">
+        <img src="../../../assets/images/2.jpeg" alt="2" class="mr-2" width="40" height="40" style="object-fit: cover;">
+        <img src="../../../assets/images/3.jpeg" alt="3" class="mr-2" width="40" height="40" style="object-fit: cover;">
+        <img src="../../../assets/images/4.jpeg" alt="4" class="mr-2" width="40" height="40" style="object-fit: cover;">
+        <img src="../../../assets/images/5.jpeg" alt="5" class="mr-2" width="40" height="40" style="object-fit: cover;">
+    </div>
+</div>
+
+<hr>
+
+<div class="row mx-0">
+    <div class="col-md-6 mb-5" *ngFor="let respuesta of empleado.respuestas">
+        <p class="text-center text-secondary h5">{{ respuesta.categoria }}</p>
+        <div>
+            <div>
+                <div class="chart">
+                    <canvas baseChart [data]="obtenerDatos( respuesta.respuestas )" [chartType]="pieChartType"
+                         [colors]="obtenerColores( respuesta.respuestas )">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

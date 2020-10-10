@@ -1,0 +1,46 @@
+<div class="limiter animate__animated animate__slideInRight">
+    <div class="container-login100">
+        <div class="wrap-login100 p-t-50 p-b-90">
+            <form class="login100-form validate-form flex-sb flex-w" #form = "ngForm" (submit)="ingresar( form )">
+
+                <span class="login100-form-title p-b-51">
+                    Inicio de sesión
+                </span>
+
+                <span class="text-danger" *ngIf="(email.invalid && email.touched) || email.invalid && form.submitted">
+                    El correo es obligatorio
+                </span>
+                <div class="wrap-input100 m-b-16">
+                    <input class="input100" type="email" name="email" ngModel
+                    placeholder="Correo electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required #email="ngModel">
+
+                    <span class="focus-input100"></span>
+                </div>
+
+                <span class="text-danger" *ngIf="(password.invalid && password.touched) || password.invalid && form.submitted">
+                    La contraseña debe contener minimo 6 letras
+                </span>
+                <div class="wrap-input100 m-b-16" data-validate="Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Contraseña" minlength="6"
+                            required ngModel #password="ngModel">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="flex-sb-m w-full p-t-3 p-b-16">
+                    <div class="ml-auto">
+                        <a routerLink="/registro" class="txt1">
+                            ¿No tienes cuenta?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn m-t-5">
+                    <button class="login100-form-btn" type="submit">
+                        Ingresar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
