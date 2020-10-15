@@ -1,13 +1,25 @@
 
 <h3 class="text-center text-secondary mb-3">Resultados de {{ empleado.nombre }} {{ empleado.apellido }}</h3>
-<div class="d-flex justify-content-center px-2">
-    <div class="imagenes">
-        <img src="../../../assets/images/1.jpeg" alt="1" class="mr-2" width="40" height="40" style="object-fit: cover;">
-        <img src="../../../assets/images/2.jpeg" alt="2" class="mr-2" width="40" height="40" style="object-fit: cover;">
-        <img src="../../../assets/images/3.jpeg" alt="3" class="mr-2" width="40" height="40" style="object-fit: cover;">
-        <img src="../../../assets/images/4.jpeg" alt="4" class="mr-2" width="40" height="40" style="object-fit: cover;">
-        <img src="../../../assets/images/5.jpeg" alt="5" class="mr-2" width="40" height="40" style="object-fit: cover;">
-    </div>
+    <div class="imagenes row mx-0 justify-content-center">
+       <div class="col-md-2 pr-0 text-center">
+        <p [style.background]="'#EF6E69'" class="mr-2 border p-2 text-white rounded font-weight-bold">Nunca </p>
+       </div>
+
+       <div class="col-md-2 pr-0 text-center">
+        <p [style.background]="'#F7CE43'" class="mr-2 border p-2 text-white rounded font-weight-bold">Casi nunca </p>
+       </div>
+
+       <div class="col-md-2 pr-0 text-center">
+        <p [style.background]="'#6CA0CC'" class="mr-2 border p-2 text-white rounded font-weight-bold">A veces </p>
+       </div>
+
+       <div class="col-md-2 pr-0 text-center">
+        <p [style.background]="'#7388B2'" class="mr-2 border p-2 text-white rounded font-weight-bold">Casi siempre </p>
+       </div>
+
+       <div class="col-md-2 pr-0 text-center">
+        <p [style.background]="'#77C14E'" class="mr-2 border p-2 text-white rounded font-weight-bold">Siempre</p>
+       </div>
 </div>
 
 <hr>

@@ -16,47 +16,42 @@
                     <li class="mb-5" *ngFor="let pregunta of preguntas">
                         <p class="h6 text-center mb-4">{{ pregunta }}</p>
 
-                        <div class="d-flex justify-content-center">
-                            <div class="card d-flex flex-column p-2 mr-2">
-                                <label [for]="'1-'+pregunta">
-                                    <img src="../../../assets/images/1.jpeg" alt="" width="40" height="40"
-                                        style="object-fit: cover;" class="pointer">
+                        <div class="row justify-content-center mx-0" >
+                            <div class="card col-md-2 d-flex text-center flex-column p-2 mr-2 mb-2" [style.background]="'#EF6E69'">
+                                <label [for]="'1-'+pregunta" [style.color]="'#fff'" class="font-weight-bold">
+                                    Nunca
                                 </label>
                                 <input type="radio" [name]="pregunta" [id]="'1-'+pregunta" class="align-self-center"
                                     value="1" ngModel #uno="ngModel" required>
                             </div>
 
-                            <div class="card d-flex flex-column p-2 mr-2">
-                                <label [for]="'2-'+pregunta">
-                                    <img src="../../../assets/images/2.jpeg" alt="" width="40" height="40"
-                                        style="object-fit: cover;" class="pointer">
+                            <div class="card col-md-2 d-flex text-center flex-column p-2 mr-2 mb-2" [style.background]="'#F7CE43'">
+                                <label [for]="'2-'+pregunta" [style.color]="'#fff'" class="font-weight-bold">
+                                    Casi nunca
                                 </label>
                                 <input type="radio" [name]="pregunta" [id]="'2-'+pregunta" class="align-self-center"
                                     value="2" ngModel #dos="ngModel" required>
                             </div>
 
-                            <div class="card d-flex flex-column p-2 mr-2">
-                                <label [for]="'3-'+pregunta">
-                                    <img src="../../../assets/images/3.jpeg" alt="" width="40" height="40"
-                                        style="object-fit: cover;" class="pointer">
+                            <div class="card col-md-2 d-flex text-center flex-column p-2 mr-2 mb-2" [style.background]="'#6CA0CC'">
+                                <label [for]="'3-'+pregunta" [style.color]="'#fff'" class="font-weight-bold">
+                                    Aveces
                                 </label>
                                 <input type="radio" [name]="pregunta" [id]="'3-'+pregunta" class="align-self-center"
                                     value="3" ngModel #tres="ngModel" required>
                             </div>
 
-                            <div class="card d-flex flex-column p-2 mr-2">
-                                <label [for]="'4-'+pregunta">
-                                    <img src="../../../assets/images/4.jpeg" alt="" width="40" height="40"
-                                        style="object-fit: cover;" class="pointer">
+                            <div class="card col-md-2 d-flex text-center flex-column p-2 mr-2 mb-2" [style.background]="'#7388B2'">
+                                <label [for]="'4-'+pregunta" [style.color]="'#fff'" class="font-weight-bold">
+                                    Casi siempre
                                 </label>
                                 <input type="radio" [name]="pregunta" [id]="'4-'+pregunta" class="align-self-center"
                                     value="4" ngModel #cuatro="ngModel" required>
                             </div>
 
-                            <div class="card d-flex flex-column p-2">
-                                <label [for]="'5-'+pregunta">
-                                    <img src="../../../assets/images/5.jpeg" alt="" width="40" height="40"
-                                        style="object-fit: cover;" class="pointer" required>
+                            <div class="card col-md-2 d-flex text-center flex-column p-2 mb-2" [style.background]="'#77C14E'">
+                                <label [for]="'5-'+pregunta" [style.color]="'#fff'" class="font-weight-bold">
+                                    Siempre
                                 </label>
                                 <input type="radio" [name]="pregunta" [id]="'5-'+pregunta" class="align-self-center"
                                     value="5" ngModel #cinco="ngModel" required>
