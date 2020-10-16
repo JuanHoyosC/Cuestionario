@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Administrador } from '../models/administrador.model';
 import { Empleado } from '../models/empleado.model';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Injectable({
@@ -20,20 +21,27 @@ export class CrudEmpleadosService {
   public admi: Administrador;
   public empleados: Empleado[] = [];
 
-  constructor(private _auth: AuthService, private afs: AngularFirestore) {
-    const token = this._auth.leerToken();
-    const decode = jwt_decode(token);
-    this.admi = new Administrador(decode.user_id, decode.email);
+  constructor(private _auth: AuthService, private afs: AngularFirestore, private afAuth: AngularFireAuth) {
 
-    this.administrador = this.afs.collection<Administrador>('usuarios', ref => ref.where('uid', '==', this.admi.uid));
-    this.preguntas = this.afs.collection<any>('preguntas');
-
-    this.administrador.valueChanges().subscribe( (admi: Administrador[]) => {
-      if(admi.length !== 0){
-        this.admi = admi[0];
-        this.empleados = admi[0].empleados;
-      }
+    this.afAuth.authState.subscribe( (user: any) => {
+      this.admi = null;
+      this.empleados = [];
+      if( !user ) return ;
+      this._auth.email = user.email;
+      this.admi = new Administrador(user.uid, user.email);
+      this.administrador = this.afs.collection<Administrador>('usuarios', ref => ref.where('uid', '==', this.admi.uid));
+      this.preguntas = this.afs.collection<any>('preguntas');
+  
+      this.administrador.valueChanges().subscribe( (admi: Administrador[]) => {
+        if(admi.length !== 0){
+          this.admi = admi[0];
+          this.empleados = admi[0].empleados;
+        }
+      })
+   
     })
+    
+  
    }
 
 

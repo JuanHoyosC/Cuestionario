@@ -4,49 +4,34 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 
 import jwt_decode from 'jwt-decode';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
-  private apikey = 'AIzaSyA1gLBmc9Hr8OhhEEBNA7lbJO-j9AUz2IQ';
   public userId = '';
-  private userToken: string = '';
   public email: string = '';
 
-  constructor(private http: HttpClient) {  
-   this.leerToken()
+  constructor(private afAuth: AngularFireAuth) {  
+
   }
 
   login(usuario: Usuario) {
 
-    const authData = {
-      ...usuario,
-      returnSecureToken: true
-    };
-
-    return this.http.post(
-      `${this.url}/verifyPassword?key=${this.apikey}`,
-      authData
-    ).pipe(
-      map(resp => {
-        this.guardarToken(resp['idToken']);
-        return resp;
-      })
-    );
+    return this.afAuth.auth
+    .signInWithEmailAndPassword(usuario.email, usuario.password)
 
   }
   
   nuevoUsuario(usuario: Usuario) {
-    return this.http.post(
-      `${this.url}/signupNewUser?key=${this.apikey}`, {...usuario})
+    return this.afAuth.auth
+    .createUserWithEmailAndPassword(usuario.email, usuario.password)
   }
 
 
-  private guardarToken(idToken: string) {
+   guardarToken(idToken: string) {
 
-    this.userToken = idToken;
     localStorage.setItem('token', idToken);
 
     let hoy = new Date();
@@ -57,30 +42,16 @@ export class AuthService {
 
   }
 
-  leerToken() {
-
-    if (localStorage.getItem('token')) {
-      this.userToken = localStorage.getItem('token');
-      const decode = jwt_decode(this.userToken );
-      this.email = decode.email;
-    } else {
-      this.userToken = '';
-    }
-
-    return this.userToken;
-
-  }
 
   salir() {
-    this.userToken = '';
-    window.location.reload();
-    localStorage.clear();
+    this.afAuth.auth.signOut();
+    localStorage.clear()
   }
 
 
   estaAutenticado(): boolean {
-
-    if (this.userToken.length < 2) {
+    const userToken = localStorage.getItem('token') || '';
+    if (userToken.length < 2) {
       return false;
     }
 
@@ -91,6 +62,7 @@ export class AuthService {
     if (expiraDate > new Date()) {
       return true;
     } else {
+      this.salir();
       return false;
     }
   }

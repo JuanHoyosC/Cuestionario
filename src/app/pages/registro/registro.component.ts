@@ -20,10 +20,11 @@ export class RegistroComponent implements OnInit {
   registrarse(form: NgForm) {
     if(form.invalid) return ;
 
-    this._auth.nuevoUsuario(form.value).subscribe(res => {
+    this._auth.nuevoUsuario(form.value).then(res => {
       this.route.navigateByUrl('/login');
       this.mensajeCorrecto();
-    }, error => this.mensajeError(error.error.error.errors[0].message))
+    })
+    .catch(error => this.mensajeError(error.message))
 
   }
 

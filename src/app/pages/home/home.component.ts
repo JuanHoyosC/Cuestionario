@@ -15,7 +15,6 @@ export class HomeComponent {
 
 
   deseleccionar( e ) {
-    console.log('dd')
     if(e) this.empleado.empleadoSeleccionado = null;
   }
 

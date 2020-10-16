@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 import Swal from 'sweetalert2'
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,20 @@ import Swal from 'sweetalert2'
 
 export class LoginComponent {
 
-  constructor(private _auth: AuthService, private route: Router) { }
+  constructor(private _auth: AuthService, private route: Router, private afAuth: AngularFireAuth) { }
 
 
   ingresar(form: NgForm) {
     if(form.invalid) return ;
 
-    this._auth.login(form.value).subscribe(() => {
-      this.route.navigateByUrl('/home');
-      this.mensajeCorrecto()
-    }, error => this.mensajeError(error.error.error.errors[0].message))
+    this._auth.login(form.value).then(() => {
+      this.afAuth.authState.subscribe( (user: any) => { 
+        if( !user ) return ;
+        this._auth.guardarToken(user.email);
+        this.route.navigateByUrl('/home');
+        this.mensajeCorrecto()
+      });
+    }) .catch(error => this.mensajeError(error.message))
 
   }
 
