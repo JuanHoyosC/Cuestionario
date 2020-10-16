@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 
-import jwt_decode from 'jwt-decode';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class AuthService {
   public userId = '';
   public email: string = '';
 
-  constructor(private afAuth: AngularFireAuth) {  
+  constructor(private afAuth: AngularFireAuth, private route: Router) {  
 
   }
 

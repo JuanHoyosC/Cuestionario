@@ -14,7 +14,7 @@ export class GraficaComponent implements OnInit {
 
 
   @Input() empleado: Empleado;
-  public colores: any[] = ['#EF6E69', '#F7CE43', '#6CA0CC', '#7388B2', '#77C14E']
+  public colores: any[] = ['#EF6E69', '#F19A43', '#F7CE43', '#6CA0CC', '#77C14E']
   public pieChartData: number[] = [2, 3, 1];
   public pieChartType: ChartType = 'pie';
   public pieChartColors = [
