@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import jwt_decode from 'jwt-decode';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 
 //firebase
 
@@ -20,56 +20,63 @@ export class CrudEmpleadosService {
   private preguntas: AngularFirestoreCollection<any>;
   public admi: Administrador;
   public empleados: Empleado[] = [];
+  public sede: string = "";
 
-  constructor(private _auth: AuthService, private afs: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(private _auth: AuthService, private afs: AngularFirestore, private afAuth: AngularFireAuth,
+    private http: HttpClient) {
+  }
 
-    this.afAuth.authState.subscribe( (user: any) => {
+  obtenerDatos() {
+    this.afAuth.authState.subscribe((user: any) => {
       this.admi = null;
       this.empleados = [];
-      if( !user ) return ;
+      if (!user) return;
       this._auth.email = user.email;
       this.admi = new Administrador(user.uid, user.email);
       this.administrador = this.afs.collection<Administrador>('usuarios', ref => ref.where('uid', '==', this.admi.uid));
       this.preguntas = this.afs.collection<any>('preguntas');
-  
-      this.administrador.valueChanges().subscribe( (admi: Administrador[]) => {
-        if(admi.length !== 0){
-          this.admi = admi[0];
-          this.empleados = admi[0].empleados;
-        }
+      this.http.get(`http://localhost:3000/administrador/${this.admi.uid}`).subscribe((administrador: Administrador) => {
+        this.admi = administrador;
+        this.empleados = administrador.empleados;
+        this.sede = administrador.sede;
       })
-   
     })
-    
-  
-   }
+  }
 
-
+  //Agrega un empleado a la base de datos
   agregarEmpleado(empleado: Empleado) {
-    this.admi.empleados.push({...empleado});
-    return this.administrador.doc( this.admi.uid ).set({ ...this.admi })
+    //Agrega el empleado al array de empleados
+    this.admi.empleados.push({ ...empleado });
+    //retorna una promesa del que el empleado será guardado en la base de datos
+    return this.http.put(`http://localhost:3000/administrador/${this.admi.uid}`, { ...this.admi })
   }
 
 
   obtenerPreguntas() {
-    return this.preguntas.valueChanges();
+    //Retorna las preguntas que estan guardadas en la base de datos
+    return this.http.get('http://localhost:3000/preguntas/')
   }
 
   obtenerEmpleado() {
-   return this.administrador.valueChanges()
+    //Retorna el administrador actual para obtener sus empleados
+    return this.http.get(`http://localhost:3000/administrador/${this.admi.uid}`)
   }
 
+  // Funcion que actualizará la información del empleado
   actualizarEmpleado(empleado: Empleado, index: number) {
+    //Reemplaza el empleado con la información nueva
     this.admi.empleados[index] = empleado;
-    return this.administrador.doc( this.admi.uid ).update({empleados: this.admi.empleados})
+    //devuelve una promesa de que el empleado será actualizado
+    return this.http.put(`http://localhost:3000/empleados/${this.admi.uid}`, this.admi.empleados )
   }
 
   eliminarEmpleado() {
-    return this.administrador.doc( this.admi.uid ).update({empleados: this.admi.empleados})
+    //devuelve una promesa de que el empleado será eliminado
+    return this.http.put(`http://localhost:3000/empleados/${this.admi.uid}`, this.admi.empleados)
   }
 
   editarEmpleado() {
-    return this.administrador.doc( this.admi.uid ).update({empleados: this.admi.empleados})
+    return this.http.put(`http://localhost:3000/empleados/${this.admi.uid}`, this.admi.empleados)
   }
 
 

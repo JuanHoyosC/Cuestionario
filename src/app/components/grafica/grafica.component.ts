@@ -4,29 +4,22 @@ import { ChartType } from 'chart.js';
 
 import { Empleado } from '../../models/empleado.model';
 
+import { Label } from 'ng2-charts';
+
 
 @Component({
   selector: 'app-grafica',
   templateUrl: './grafica.component.html',
   styleUrls: ['./grafica.component.css']
 })
-export class GraficaComponent implements OnInit {
+export class GraficaComponent {
 
 
   @Input() empleado: Empleado;
   public colores: any[] = ['#EF6E69', '#F19A43', '#F7CE43', '#6CA0CC', '#77C14E']
-  public pieChartData: number[] = [2, 3, 1];
   public pieChartType: ChartType = 'pie';
-  public pieChartColors = [
-    {
-      backgroundColor: ['#77C14E', 'rgba(0,255,0,0.3)', 'rgba(255,255,255,0.3)']
-    },
-  ];
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   obtenerDatos(datos: any[]) {
     let nuevosDatos = [];
@@ -41,6 +34,25 @@ export class GraficaComponent implements OnInit {
     });
 
     return  [ { backgroundColor: colores } ];
+  }
+
+  obtenerPorcentaje(datos: any[]): Label[] {
+    let porcentajes: Label[] = [];
+    const resultado = this.sumarDatosIguales(datos);
+    let sumaTotal = 0;
+
+    //Obtiene cantidad de puntos
+    resultado.forEach(res => {
+      sumaTotal+=res.suma
+    });
+
+    //Divide la cantidad de puntos individuales entre los puntos totales
+    resultado.forEach(res => {
+      const porcentaje = Math.round((res.suma / sumaTotal) * 100);
+      porcentajes.push(porcentaje + '%')
+    });
+
+    return  porcentajes;
   }
 
   sumarDatosIguales(datos: any[]): any[] {

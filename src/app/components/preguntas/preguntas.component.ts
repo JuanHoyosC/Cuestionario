@@ -18,12 +18,13 @@ export class PreguntasComponent  {
   categorias: any[] = []
   nombreCategoria: any[] = [];
   categoria: number = 0;
-  @Input() empleado: Empleado = new Empleado('', '', '');
+  @Input() empleado: Empleado = new Empleado('', '', '', '');
   @Input() index: number;
 
   constructor(private _crud: CrudEmpleadosService) {
     this._crud.obtenerPreguntas().subscribe(preguntas => {
       for (const pregunta in preguntas[0]) {
+        if(pregunta === "_id") continue;
         this.nombreCategoria.push(pregunta);
         this.categorias.push(preguntas[0][pregunta])
       }
@@ -54,7 +55,7 @@ export class PreguntasComponent  {
     this.empleado.respuestas.push({ ...respuesta })
     if(this.empleado.respuestas.length === 6) {
       this.empleado.encuestado = true;
-      this._crud.actualizarEmpleado(this.empleado, this.index).then(res => this.mensajeCorrecto())
+      this._crud.actualizarEmpleado(this.empleado, this.index).subscribe(res => this.mensajeCorrecto())
     }
     
   }

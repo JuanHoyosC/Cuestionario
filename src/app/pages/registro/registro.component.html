@@ -11,20 +11,34 @@
                     El correo es obligatorio
                 </span>
                 <div class="wrap-input100 m-b-16">
-                    <input class="input100" type="email" name="email" ngModel placeholder="Correo electronico"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required #email="ngModel">
+                    <input class="input100" type="email" name="email" ngModel placeholder="Correo electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required #email="ngModel">
 
                     <span class="focus-input100"></span>
                 </div>
 
-                <span class="text-danger"
-                    *ngIf="(password.invalid && password.touched) || password.invalid && form.submitted">
+                <span class="text-danger" *ngIf="(password.invalid && password.touched) || password.invalid && form.submitted">
                     La contraseña debe contener minimo 6 letras
                 </span>
                 <div class="wrap-input100 m-b-16" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Contraseña" minlength="6"
-                       required ngModel #password="ngModel">
+                    <input class="input100" type="password" name="password" placeholder="Contraseña" minlength="6" required ngModel #password="ngModel">
                     <span class="focus-input100"></span>
+                </div>
+
+
+                <span class="text-danger" *ngIf="(sede.invalid && sede.touched) || sede.invalid && form.submitted">
+                    Debe seleccionar una sede
+                </span>
+                <div class="wrap-input100 m-b-16">
+                    <select class="input100" name="sede" required [ngModel]="'Campeche'" #sede="ngModel">
+                        <option value="Campeche" selected>Campeche</option>
+                        <option value="CDMX">CDMX</option>
+                        <option value="Hidalgo">Hidalgo</option>
+                        <option value="Chiapas">Chiapas</option>
+                        <option value="Tabasco">Tabasco</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Edo mex">Edo mex</option>
+                        <option value="Zacatecas">Zacatecas</option>
+                    </select>
                 </div>
 
                 <div class="flex-sb-m w-full p-t-3 p-b-16">

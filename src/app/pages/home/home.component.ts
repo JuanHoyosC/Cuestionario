@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MostrarEmpleadosComponent } from '../../components/mostrar-empleados/mostrar-empleados.component';
+import { CrudEmpleadosService } from '../../services/crud-empleados.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,9 @@ export class HomeComponent {
 
   @ViewChild( MostrarEmpleadosComponent ) empleado: MostrarEmpleadosComponent;
 
-  constructor() { }
+  constructor(private _crud: CrudEmpleadosService) { 
+    this._crud.obtenerDatos()
+  }
 
 
 

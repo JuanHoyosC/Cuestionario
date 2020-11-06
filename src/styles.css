@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 * {
     box-sizing: border-box;
 }
@@ -8,12 +9,13 @@ body {
 }
 
 .nav-link:hover {
-    text-shadow: 0.1px 0.1px 1px  rgb(255, 255, 255) !important;
+    text-shadow: 0.1px 0.1px 1px rgb(255, 255, 255) !important;
     color: rgb(255, 255, 255) !important;
 }
 
-
-.btn:focus, .btn.focus, input:focus {
+.btn:focus,
+.btn.focus,
+input:focus {
     outline: none !important;
     box-shadow: none !important;
 }
@@ -31,6 +33,26 @@ input:focus {
     border: 1px dotted rgba(56, 141, 252);
 }
 
-.eliminar, .editar{
+.eliminar,
+.editar {
     font-size: 20px;
+}
+
+.empleados {
+    height: 800px;
+    overflow-y: scroll;
+}
+
+.empleados::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.empleados::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.empleados::-webkit-scrollbar-thumb {
+    background-color: #827ffe;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
 }

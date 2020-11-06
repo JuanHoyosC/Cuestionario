@@ -19,8 +19,9 @@ export class RegistroComponent implements OnInit {
 
   registrarse(form: NgForm) {
     if(form.invalid) return ;
-
+    console.log(form.value)
     this._auth.nuevoUsuario(form.value).then(res => {
+      this._auth.agregarUsuario(form.value.sede);
       this.route.navigateByUrl('/login');
       this.mensajeCorrecto();
     })

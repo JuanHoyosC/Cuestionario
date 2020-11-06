@@ -1,23 +1,23 @@
 
-<h3 class="text-center text-secondary mb-3">Resultados de {{ empleado.nombre }} {{ empleado.apellido }}</h3>
+<h3 class="text-center text-secondary mb-3">Resultados de {{ empleado.nombre + " " + empleado.apellido.trim() | capitalize }} </h3>
     <div class="imagenes row mx-0 justify-content-center">
-       <div class="col-md-2 pr-0 text-center">
+       <div class="col-md-2 pr-0 text-center pl-0">
         <p [style.background]="'#EF6E69'" class="mr-2 border p-2 text-white rounded font-weight-bold">Nunca </p>
        </div>
 
-       <div class="col-md-2 pr-0 text-center">
+       <div class="col-md-2 pr-0 text-center pl-0">
         <p [style.background]="'#F19A43'" class="mr-2 border p-2 text-white rounded font-weight-bold">Casi nunca </p>
        </div>
 
-       <div class="col-md-2 pr-0 text-center">
+       <div class="col-md-2 pr-0 text-center pl-0">
         <p [style.background]="'#F7CE43'" class="mr-2 border p-2 text-white rounded font-weight-bold">A veces </p>
        </div>
 
-       <div class="col-md-2 pr-0 text-center">
+       <div class="col-md-2 pr-0 text-center pl-0">
         <p [style.background]="'#6CA0CC'" class="mr-2 border p-2 text-white rounded font-weight-bold">Casi siempre </p>
        </div>
 
-       <div class="col-md-2 pr-0 text-center">
+       <div class="col-md-2 pr-0 text-center pl-0">
         <p [style.background]="'#77C14E'" class="mr-2 border p-2 text-white rounded font-weight-bold">Siempre</p>
        </div>
 </div>
@@ -30,8 +30,11 @@
         <div>
             <div>
                 <div class="chart">
-                    <canvas baseChart [data]="obtenerDatos( respuesta.respuestas )" [chartType]="pieChartType"
-                         [colors]="obtenerColores( respuesta.respuestas )">
+                    <canvas baseChart [data]="obtenerDatos( respuesta.respuestas )" 
+                         [chartType]="pieChartType"
+                         [colors]="obtenerColores( respuesta.respuestas )"
+                         [labels]="obtenerPorcentaje( respuesta.respuestas )"
+                         >
                     </canvas>
                 </div>
             </div>

@@ -26,6 +26,7 @@ import { PreguntasComponent } from './components/preguntas/preguntas.component';
 import { GraficaComponent } from './components/grafica/grafica.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ChartsModule } from 'ng2-charts';
     MostrarEmpleadosComponent,
     EncuestaComponent,
     PreguntasComponent,
-    GraficaComponent
+    GraficaComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

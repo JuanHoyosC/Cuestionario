@@ -16,9 +16,10 @@ export class EncuestaComponent {
   index: number;
 
   constructor(private _crud: CrudEmpleadosService, private route: ActivatedRoute) { 
-    this._crud.obtenerEmpleado().subscribe(administrador => {
+    this._crud.obtenerEmpleado().subscribe((administrador: Administrador) => {
+      console.log(administrador)
       const index = this.route.snapshot.paramMap.get('empleado').split('-')[0];
-      this.empleado = administrador[0].empleados[index];
+      this.empleado = administrador.empleados[index];
       this.index = Number(index);
     })
   }
