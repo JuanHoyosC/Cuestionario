@@ -29,15 +29,18 @@ export class GraficaComponent {
 
   obtenerColores(datos: any[]) {
     let colores = [];
+    //Obtiene los colores del array y los ordena de modo que quede de acuerdo al puntaje que saco
     this.sumarDatosIguales(datos).forEach(res => {
       colores.push(this.colores[res.dato - 1])
     });
 
+    //Los envia al canvas
     return  [ { backgroundColor: colores } ];
   }
 
   obtenerPorcentaje(datos: any[]): Label[] {
     let porcentajes: Label[] = [];
+    //Obtiene cuantas veces aparece cada puntuación
     const resultado = this.sumarDatosIguales(datos);
     let sumaTotal = 0;
 
@@ -56,8 +59,10 @@ export class GraficaComponent {
   }
 
   sumarDatosIguales(datos: any[]): any[] {
+    // crea un array sin repeteciones
     const myUniqueArray = [...new Set(datos)];
     let resultado = []
+    // Suma la repeteciones de cada puntaje, es decir si 1 salio 3 veces y saco 2 solo una vez, lo hará de esta forma {1: 3, 2:1}
     for (let i = 0; i < myUniqueArray.length; i++) {
       let suma = 0;
       for (let j = 0; j < datos.length; j++) {

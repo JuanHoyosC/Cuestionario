@@ -23,7 +23,8 @@ export class LoginComponent {
     this._auth.login(form.value).then(() => {
       this.afAuth.authState.subscribe( (user: any) => { 
         if( !user ) return ;
-        this._auth.guardarToken(user.email);
+        //Guarda un token en el local storage para inidicar que se esta autentica
+        this._auth.guardarToken(user.refreshToken);
         this.route.navigateByUrl('/home');
         this.mensajeCorrecto()
       });

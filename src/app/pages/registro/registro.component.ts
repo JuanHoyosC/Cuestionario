@@ -19,9 +19,11 @@ export class RegistroComponent implements OnInit {
 
   registrarse(form: NgForm) {
     if(form.invalid) return ;
-    console.log(form.value)
+    //Envia los datos ingresados en el registro a la funcion nuevoUsuario del servicio Auth
     this._auth.nuevoUsuario(form.value).then(res => {
+      //Agrega al administrador a la base de datos de mongo
       this._auth.agregarUsuario(form.value.sede);
+      //Navega hacia la pagina de login
       this.route.navigateByUrl('/login');
       this.mensajeCorrecto();
     })

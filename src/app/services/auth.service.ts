@@ -14,12 +14,9 @@ export class AuthService {
   public userId = '';
   public email: string = '';
   private admi: Administrador;
-  private administrador: AngularFirestoreCollection<Administrador>;
-  private empleados: AngularFirestoreCollection<any>;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private http: HttpClient) {
-    this.administrador = this.afs.collection<Administrador>('usuarios');
-  }
+
+  constructor(private afAuth: AngularFireAuth,  private http: HttpClient) {}
 
   login(usuario: Usuario) {
 
@@ -35,13 +32,16 @@ export class AuthService {
 
   agregarUsuario(sede: string) {
 
+    //Al crear el usuario en firebase, se obtendra su uid
     this.afAuth.authState.subscribe((user: any) => {
       this.admi = null;
       if (!user) return;
-      //Creamos un administrador
+      //Creamos un administrador con la uid del usuario en firebase
       this.admi = new Administrador(user.uid, user.email);
+      //Obtenemos las sedes
       this.http.get('http://localhost:3000/sedes').subscribe(res => {
    
+        //Le damos al administrador la sede que selecciono
         let arraySede = res[0][sede];
 
         //Convierte cada empleado de la base de dato a tipo Empleado y se los añade al administrador
@@ -72,12 +72,14 @@ export class AuthService {
   }
 
 
+  // Funcion para salir de la session de firebase
   salir() {
     this.afAuth.auth.signOut();
     localStorage.clear()
   }
 
 
+  // Funcion paraverificar si hay un administrador autenticado
   estaAutenticado(): boolean {
     const userToken = localStorage.getItem('token') || '';
     if (userToken.length < 2) {

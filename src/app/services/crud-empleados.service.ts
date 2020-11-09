@@ -27,17 +27,22 @@ export class CrudEmpleadosService {
   }
 
   obtenerDatos() {
+    //Verifica si hay una session iniciada
     this.afAuth.authState.subscribe((user: any) => {
       this.admi = null;
       this.empleados = [];
+      //SI no hay session iniciada no retorna nada
       if (!user) return;
+      //Busca el email del administeador que inicio session
       this._auth.email = user.email;
       this.admi = new Administrador(user.uid, user.email);
-      this.administrador = this.afs.collection<Administrador>('usuarios', ref => ref.where('uid', '==', this.admi.uid));
-      this.preguntas = this.afs.collection<any>('preguntas');
+      //Obtienes los datos del administrador que inicio sessión desde la base de datos
       this.http.get(`http://localhost:3000/administrador/${this.admi.uid}`).subscribe((administrador: Administrador) => {
+        //Guarda los datos del administrador en una variable de tipo administrador
         this.admi = administrador;
+        //Guarda los empleados en una variable de empleados
         this.empleados = administrador.empleados;
+        //Guarda la sede del administrador en una varable para ser mostrada en el navbar
         this.sede = administrador.sede;
       })
     })
