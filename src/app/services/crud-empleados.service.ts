@@ -16,12 +16,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class CrudEmpleadosService {
 
-  private administrador: AngularFirestoreCollection<Administrador>;
-  private preguntas: AngularFirestoreCollection<any>;
+
   public admi: Administrador;
   public empleados: Empleado[] = [];
   public sede: string = "";
-
+  public email: string = '';
   constructor(private _auth: AuthService, private afs: AngularFirestore, private afAuth: AngularFireAuth,
     private http: HttpClient) {
   }
@@ -62,9 +61,9 @@ export class CrudEmpleadosService {
     return this.http.get('http://localhost:3000/preguntas/')
   }
 
-  obtenerEmpleado() {
+  obtenerEmpleado(uid: string) {
     //Retorna el administrador actual para obtener sus empleados
-    return this.http.get(`http://localhost:3000/administrador/${this.admi.uid}`)
+    return this.http.get(`http://localhost:3000/administrador/${uid}`)
   }
 
   // Funcion que actualizará la información del empleado

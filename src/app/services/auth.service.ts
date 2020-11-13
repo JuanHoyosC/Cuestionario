@@ -30,14 +30,10 @@ export class AuthService {
       .createUserWithEmailAndPassword(usuario.email, usuario.password)
   }
 
-  agregarUsuario(sede: string) {
+  agregarUsuario(uid:string, email: string, sede: string) {
 
-    //Al crear el usuario en firebase, se obtendra su uid
-    this.afAuth.authState.subscribe((user: any) => {
-      this.admi = null;
-      if (!user) return;
       //Creamos un administrador con la uid del usuario en firebase
-      this.admi = new Administrador(user.uid, user.email);
+      this.admi = new Administrador(uid, email);
       //Obtenemos las sedes
       this.http.get('http://localhost:3000/sedes').subscribe(res => {
    
@@ -57,7 +53,6 @@ export class AuthService {
         this.http.post('http://localhost:3000/administrador', { ...this.admi }).subscribe();
       });
 
-    })
   }
 
 
