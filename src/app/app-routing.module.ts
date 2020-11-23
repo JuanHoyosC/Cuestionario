@@ -10,6 +10,7 @@ import { EncuestaComponent  } from './pages/encuesta/encuesta.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { NoAccessGuard } from './guards/no-access.guard';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [NoAccessGuard]},
@@ -21,6 +22,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
 })
 export class AppRoutingModule { }

@@ -77,7 +77,7 @@ export class PreguntasComponent  {
   mensajeError() {
     Swal.fire({
       title: 'Debe responder todas las preguntas antes de continuar',
-      text: '¿cerrar?',
+      /* text: '¿cerrar?', */
       icon: 'error',
       confirmButtonText: 'cerrar'
     })
